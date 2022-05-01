@@ -1,17 +1,15 @@
 # CHEOLLIAN
 
 ## Table of Contents
-* [🗓Milestone](##🗓-Milestone(2022.04.20-~-2022.06.10))
-* [🌏CHEOLLIAN](##🌏-CHEOLLIAN)
-* [🧑‍💻Project](##🧑‍💻-Project)
-* [💿Dataset](##💿-Dataset)
+* [🗓Milestone](#🗓-milestone(2022.04.20-~-2022.06.10))
+* [🌏CHEOLLIAN](#🌏-cheollian)
+* [🧑‍💻Project](#🧑‍💻-project)
+* [💿Dataset](#💿-dataset)
 
 <br>
 
-
-
-## 🗓 Milestone(2022.04.20 ~ 2022.06.10)
 ***
+## 🗓 Milestone(2022.04.20 ~ 2022.06.10)
 
 | 단계 | 내용 | M1 | M2 | H1 | H2 | H3 | H4 | H5 | H6 |  
 | --- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|---:|  
@@ -26,8 +24,8 @@
 
 <br>
 
-## 🌏 CHEOLLIAN
 ***
+## 🌏 CHEOLLIAN
 
 | 조원 | 역할 |
 | --- | :---: |
@@ -38,9 +36,8 @@
 
 <br>
 
-
-## Project
 ***
+## Project
 
 <br>
 
@@ -82,8 +79,8 @@ AIFFEL 해커톤 프로젝트
 
 <br>
 
-## 💿 Dataset
 ***
+## 💿 Dataset
 
 Dataset: 위성영상 객체판독 소개
 
