@@ -1,10 +1,10 @@
 # CHEOLLIAN
 
 ## Table of Contents
-* [🗓Milestone](#🗓-milestone(2022.04.20-~-2022.06.10))
+* [🗓Milestone](#-milestone20220420~20220610)
 * [🌏CHEOLLIAN](#-cheollian)
-* [🧑‍💻Project](#🧑‍💻-project)
-* [💿Dataset](#💿-dataset)
+* [🧑‍💻Project](#-project)
+* [💿Dataset](#-dataset)
 
 <br>
 
