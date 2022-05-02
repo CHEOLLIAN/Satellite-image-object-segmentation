@@ -1,5 +1,5 @@
 Outputs of Mini_Project
-- ★ Team Githeub Report (Readme Basic) -> https://github.com/CHEOLLIAN/CHEOLLIAN#readme
+- Githeub Report (Readme Basic) -> https://github.com/CHEOLLIAN/CHEOLLIAN#readme
 - Development schedule (milestones), areas of responsibility for each team member
 
 - 01_Baseline Code
