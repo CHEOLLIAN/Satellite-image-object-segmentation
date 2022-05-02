@@ -1,4 +1,4 @@
-Outputs of Mini_Project
+## Outputs of Mini_Project
 - Githeub Report (Readme Basic) -> https://github.com/CHEOLLIAN/CHEOLLIAN#readme
 - Development schedule (milestones), areas of responsibility for each team member
 
