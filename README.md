@@ -37,7 +37,7 @@
 #### co-operation Tool
 | Tool | 용도 | Link |
 | --- | :---: | :---: |
-| Github | 코드 업로드 및 프로젝트 제출 | [🔗](https://github.com/CHEOLLIAN/Satellite-image-object-segmentation) |
+| Github | 코드 업로드 및 프로젝트 제출 | [🔗](https://github.com/CHEOLLIAN/Satellite-image-object-segmentation) |
 | notion | 회의 내용 및 자료 정리 | [🔗](https://www.notion.so/SIA-0571b4a4e0be4bea909a9e9c05ff837b) |
 | Slack | 타 팀과 소통 | 🔗 |
 | Google Meet | 회의 및 소통 | 🔗 |
