@@ -27,19 +27,19 @@
 ***
 ## 🌏 CHEOLLIAN
 
-| 조원 | 역할 |
-| --- | :---: |
-| 박민규 | EDA, 데이터 전처리, 모델 구현, CV |
-| 권민호 | 데이터 전처리, 모델 구현, CV |
-| 김보성 | 데이터 전처리, 모델 구현, CV |
-| 양우민 | 데이터 전처리, 모델 구현, CV |
+| 조원 | 담당 역할 | 역할 |
+| --- |:---: | :---: |
+| 박민규 | EDA | 데이터 전처리, 모델 구현, CV |
+| 권민호 | 라이브러리 분석 및 구현 | 데이터 전처리, 모델 구현, CV |
+| 김보성 | 건물 모델 | 데이터 전처리, 모델 구현, CV |
+| 양우민 | 도로 모델 | 데이터 전처리, 모델 구현, CV |
 
 #### co-operation Tool
 | Tool | 용도 | Link |
 | --- | :---: | :---: |
 | Github | 코드 업로드 및 프로젝트 제출 | [🔗](https://github.com/CHEOLLIAN/Satellite-image-object-segmentation) |
 | notion | 회의 내용 및 자료 정리 | [🔗](https://www.notion.so/SIA-0571b4a4e0be4bea909a9e9c05ff837b) |
-| Slack | 타 팀과 소통 | 🔗 |
+| Slack | 멘토님 및 퍼실님과 소통 | 🔗 |
 | Google Meet | 회의 및 소통 | 🔗 |
 | Google Drive | 파일 공유 | 🔗 |
 | Google Cloud |  | 🔗 |
