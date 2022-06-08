@@ -5,12 +5,6 @@
 * [🌏CHEOLLIAN](#-cheollian)
 * [🧑‍💻Project](#-project)
 * [💿Dataset](#-dataset)
-* [Base Model](#base-model)
-* [Ablation Study](#ablation-study)
-* [EDA](#eda)
-* [LV1](#lv1-건물-도로-각각-검출)
-* [LV2](#lv2-건물-객체-검출)
-* [LV3](#lv3-폴리곤-지도-매핑)
 
 <br>
 
@@ -117,6 +111,14 @@ Dataset: 위성영상 객체판독 소개
 
 >MMSegmentation을 활용하여 전체적인 프로젝트를 수행
 
+* [EDA](#eda)
+* [Base Model](#base-model)
+* [Data Preprocessing](#데이터-전처리)
+* [LV1](#lv1-건물-도로-각각-검출)
+* [LV2](#lv2-건물-객체-검출)
+* [LV3](#lv3-폴리곤-지도-매핑)
+
+
 <br>
 
 ***
@@ -156,6 +158,15 @@ jeojson 파일은 위와 같이 구성
 ## Base Model
 ### 모델 별 성능 비교
 
+*default* Augmentation  
+<pre><code>random resize with ratio 0.5 ~ 2.0  
+random cropping to 512 x 512
+random horizontal flipping prop 0.5  
+PhotometricDistortion
+</pre></code>
+
+<br>
+
 | Backbone |	Model | Crop_size |	Augmentation |	Loss function |	mIoU |	Building IoU |
 | --- | --- | --- | --- | --- | :---: | :---: |
 | ResNet101 |	Semantic FPN |	512x512 |	default	|CrossEntropy|	77.43	| 69.61|
@@ -170,20 +181,9 @@ jeojson 파일은 위와 같이 구성
 
 <br>
 
-**Building** *default* Augmentation  
-<pre><code>random resize with ratio 0.5 ~ 2.0  
-random cropping to 512 x 512
-random horizontal flipping prop 0.5  
-PhotometricDistortion
-</pre></code>
-
-<br>
-
 ## 데이터 전처리
 
 데이터셋의 geojson 파일의 building_imcoords를 이용하여 아래와 같이 masking image를 만들어 줌
-
-<br>
 
 <img width="512" alt="BLD00148_PS3_K3A_NIA0276" src="https://user-images.githubusercontent.com/96764429/172626025-308a9335-1e3a-4115-9055-4b4878b8cf5a.png">
 
@@ -224,6 +224,16 @@ iteration: 20k
 <br>
 
 ### Building
+
+**Building** *default* Augmentation  
+<pre><code>random resize with ratio 0.5 ~ 2.0  
+random cropping to 512 x 512
+random horizontal flipping prop 0.5  
+PhotometricDistortion
+</pre></code>
+
+<br>
+
 | Loss function |	mIoU |	Building IoU |
 | --- | :---: | :---: |
 | CrossEntropy |	87.18 |	82.88 |
@@ -246,6 +256,15 @@ iteration: 20k
 
 ### Road
 
+**Road** *default* Augmentation  
+<pre><code>random resize with ratio 0.5 ~ 1.5  
+random cropping to 512 x 512
+random horizontal flipping prop 0.5  
+PhotometricDistortion
+</pre></code>
+
+<br>
+
 | Loss function |	mIoU |	Road IoU |
 | --- | :---: | :---: |
 | CrossEntropy	| 78.45	| 64.77 |
@@ -263,15 +282,6 @@ iteration: 20k
 | CrossEntropy, Focal, Lovasz	| 79.12	| 66.03 |
 | Dice, Focal, Lovasz	| 79.22	| **66.32** |
 | CrossEntropy, Dice, Focal, Lovasz|	79.25 |	66.3 |
-
-<br>
-
-**Road** *default* Augmentation  
-<pre><code>random resize with ratio 0.5 ~ 1.5  
-random cropping to 512 x 512
-random horizontal flipping prop 0.5  
-PhotometricDistortion
-</pre></code>
 
 <br>
 
