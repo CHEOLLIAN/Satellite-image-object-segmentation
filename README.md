@@ -190,3 +190,13 @@ PhotometricDistortion
 
 <br>
 
+* Road의 경우 Building 보다 Class imbalance가 더욱 심함
+* Class imbalance를 잡아주기 위한 Loss function인 Focal loss와 OHEM Sampler의 성능을 비교
+
+|Loss function |	Augmentation |	mIoU |	Road IoU |
+| --- | --- | :---: | :---: |
+| Dice, Lovasz	| default |	78.89 |	65.76 |
+| Dice,Lovasz |	OHEM sampler	| 79.08	| 66.03 |
+| Dice, **Focal**, Lovasz |	default |	79.22	| **66.32** |
+
+
