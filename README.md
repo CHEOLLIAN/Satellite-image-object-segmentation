@@ -120,11 +120,26 @@ Dataset: 위성영상 객체판독 소개
 | HRNetV2 |	FCN |	512X512 |	default|	CrossEntropy |	78.52|	72.98 |
 | **MiT-B5** |	**Segformer**|	512x512 |	default |	CrossEntropy |	**87.18** |	**82.88** |
 
+<br>
+
+<br>
+
+*default* Augmentation  
+<pre><code>random resize with ratio 0.5 ~ 2.0  
+random cropping to 512 x 512
+random horizontal flipping prop 0.5  
+PhotometricDistortion
+</pre></code>
+
+<br>
+
+<br>
 
 ## Ablation Study
 **Loss function**이 모델의 성능에 미치는 영향을 파악하고자 Ablation Study 진행  
 
 Crop size: 512 x 512  
+Augmentation: default  
 iteration: 20k
 
 ## Building
