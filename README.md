@@ -113,7 +113,7 @@ Dataset: 위성영상 객체판독 소개
 ### 모델 별 성능 비교
 
 | Backbone |	Model | Crop_size |	Augmentation |	Loss function |	mIoU |	Building IoU |
-| --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | :---: | :---: |
 | ResNet101 |	Semantic FPN |	512x512 |	default	|CrossEntropy|	77.43	| 69.61|
 | ResNet101 |	DeepLabV3 |	512x512 |	default |	CrossEntropy	| 85.4	| 80.52|
 | ResNet101 | DeepLabV3+ |	512X512	|default |	CrossEntropy	| 86.03	| 81.34|
@@ -142,7 +142,7 @@ iteration: 20k
 
 ### Building
 | Loss function |	mIoU |	Building IoU |
-| --- | --- | --- |
+| --- | :---: | :---: |
 | CrossEntropy |	87.18 |	82.88 |
 | Dice	| 87.59	| **83.51** |
 | Focal |	87.17|	82.88 |
@@ -164,7 +164,7 @@ iteration: 20k
 ### Road
 
 | Loss function |	mIoU |	Road IoU |
-| --- | --- | --- |
+| --- | :---: | :---: |
 | CrossEntropy	| 78.45	| 64.77 |
 | Dice	| 78.8	| 65.45 |
 | Focal	| 78.38	| 64.62 |
@@ -174,11 +174,11 @@ iteration: 20k
 | CrossEntropy, Lovasz	| 79.17	| 66.12 |
 | Dice, Focal	| 78.93	| 65.66 |
 | Dice, Lovasz	| 78.89	| 65.76 |
-| Focal, Lovasz	| 79.24	| 66.39 |
+| Focal, Lovasz	| 79.24	| **66.39** |
 | CrossEntropy, Dice, Focal	| 78.68	| 65.16 |
 | CrossEntropy,Dice, Lovasz	| 78.64	| 65.11 |
 | CrossEntropy, Focal, Lovasz	| 79.12	| 66.03 |
-| Dice, Focal, Lovasz	| 79.22	| 66.32 |
+| Dice, Focal, Lovasz	| 79.22	| **66.32** |
 | CrossEntropy, Dice, Focal, Lovasz|	79.25 |	66.3 |
 
 **Road** *default* Augmentation  
