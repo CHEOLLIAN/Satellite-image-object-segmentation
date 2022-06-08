@@ -103,3 +103,18 @@ Dataset: 위성영상 객체판독 소개
 | 소개 | 아리랑 위성 영상을 활용한 학습 데이터셋 5종(관심객체 검출, 건물 윤곽 추출, 도로 윤곽 추출, 구름 추출, 레이더영상 수계 추출)</br> 구축하여 재난, 환경, 에너지, 자원, 안보, 식량 등 위성 영상을 다루는 다양한 분야에서 효율적으로 분석, 활용할 수 있도록 데이터 제공 |
 | 주요 키워드 | 위성영상, 객체검출, 건물 윤곽 추출, 도로 윤곽 추출, 수계 검출, 구름 추출 |
 | 구축 목적 | 아리랑 위성영상(광학 및 레이다 영상)을 이용한 다양한 위성정보 획득</br> 아리랑 위성 AI 데이터 구축·제공을 통해 국내 AI 위성 분석 서비스 산업 육성 |
+
+<br>
+
+***
+## 베이스 모델 구현
+### 모델 별 성능 비교
+
+| Backbone |	Model | Crop_size |	Augmentation |	Loss function |	mIoU |	IoU |
+| --- | --- | --- | --- | --- | --- | --- |
+| ResNet101 |	Semantic FPN |	512x512 |	default	|CrossEntropy|	77.43	| 69.61|
+| ResNet101 |	DeepLabV3 |	512x512 |	default |	CrossEntropy	| 85.4	| 80.52|
+| ResNet101 | DeepLabV3+ |	512X512	|default |	CrossEntropy	| 86.03	| 81.34|
+| HRNetV2 |	FCN |	512X512 |	default|	CrossEntropy |	78.52|	72.98 |
+| **MiT-B5** |	**Segformer**|	512x512 |	default |	CrossEntropy |	**87.18** |	**82.88** |
+
