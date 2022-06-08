@@ -5,6 +5,8 @@
 * [🌏CHEOLLIAN](#-cheollian)
 * [🧑‍💻Project](#-project)
 * [💿Dataset](#-dataset)
+* [Base Model](#base-model)
+* [Ablation Study](#ablation-study)
 
 <br>
 
@@ -107,7 +109,7 @@ Dataset: 위성영상 객체판독 소개
 <br>
 
 ***
-## 베이스 모델 구현
+## Base Model
 ### 모델 별 성능 비교
 
 | Backbone |	Model | Crop_size |	Augmentation |	Loss function |	mIoU |	IoU |
@@ -117,4 +119,30 @@ Dataset: 위성영상 객체판독 소개
 | ResNet101 | DeepLabV3+ |	512X512	|default |	CrossEntropy	| 86.03	| 81.34|
 | HRNetV2 |	FCN |	512X512 |	default|	CrossEntropy |	78.52|	72.98 |
 | **MiT-B5** |	**Segformer**|	512x512 |	default |	CrossEntropy |	**87.18** |	**82.88** |
+
+
+## Ablation Study
+**Loss function**이 모델의 성능에 미치는 영향을 파악하고자 Ablation Study 진행  
+
+Crop size: 512 x 512  
+iteration: 20k
+
+## Building
+| Loss function |	mIoU |	Building IoU |
+| --- | --- | --- |
+| Dice	| 87.59	| **83.51** |
+| CrossEntropy |	87.18 |	82.88 |
+| Focal |	87.17|	82.88 |
+| Lovasz	|87.19	| 82.97 |
+| CrossEntropy, Dice	| 87.41	| 83.23 |
+| CrossEntropy, Focal	| 87.22	| 82.92|
+| CrossEntropy, Lovasz	| 87.45	| 83.28|
+| Dice, Focal	| 87.33	| 83.19 |
+| Dice, Lovasz	| 87.32	| 83.13 |
+| Focal, Lovasz	| 87.32	| 83.12 |
+| CrossEntropy, Dice, Focal	| 87.07	| 82.78 |
+| CrossEntropy, Dice, Lovasz	| 87.43	| 83.31 |
+| CrossEntropy, Focal, Lovasz	| 87.64	| **83.51** |
+| Dice, Focal, Lovasz |	87.49	| 83.35 |
+| CrossEntropy, Dice, Focal, Lovasz	| 87.42	| 83.23 |
 
