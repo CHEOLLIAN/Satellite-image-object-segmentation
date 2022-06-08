@@ -193,11 +193,24 @@ PhotometricDistortion
 * Road의 경우 Building 보다 Class imbalance가 더욱 심함
 * Class imbalance를 잡아주기 위한 Loss function인 **Focal Loss**와 **OHEM Sampler**의 성능을 비교
 
-|Loss function |	Augmentation |	mIoU |	Road IoU |
-| --- | --- | :---: | :---: |
-| Dice, Lovasz	| default |	78.89 |	65.76 |
-| Dice,Lovasz |	OHEM sampler	| 79.08	| 66.03 |
-| Dice, **Focal**, Lovasz |	default |	79.22	| **66.32** |
+| Loss function |	Augmentation | Sampler |	mIoU |	Road IoU |
+| --- | --- | --- | :---: | :---: |
+| Dice, Lovasz	| default |  |	78.89 |	65.76 |
+| Dice,Lovasz |	default	| OHEM | 79.08	| 66.03 |
+| Dice, **Focal**, Lovasz |	default |	 | 79.22	| **66.32** |
 
-OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 모델의 성능이 높게 나오는 것을 확인
+OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 모델의 성능이 높게 나오는 것을 확인  
+
+* 성능 향상을 위해 Road Model에 **CutOut** augmentation을 적용
+
+| Loss function | Augmentation | mIoU | Road IoU | ➡️ | Augmentation | mIoU | Road IoU |
+| --- | --- | :---: | :---: | --- | --- | :---: | :---: |
+| CrossEntropy, Lovasz	| Default	| 79.17 |	66.12	| ➡️ |	CutOut | 79.09 |	**66.61** |
+| Focal, Lovasz	| Default |	79.24 |	66.39	| ➡️	| CutOut	| 79.17 |	**66.42** |
+| CrossEntropy, Focal, Lovasz |	Default	| 79.12	| 66.03	| ➡️ |	CutOut |	79.1	| **66.18** |
+| Dice, Focal, Lovasz	| Default |	79.25 |	66.3	| ➡️	| CutOut	| 79.44	| **66.71** |
+| CrossEntropy ,Dice, Focal, Lovasz |	Default	| 79.22 |	66.32	| ➡️ |	CutOut	| 79.25 |	**66.4** |
+
+**CutOut**을 적용했을 때 성능 향상   
+
 
