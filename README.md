@@ -7,6 +7,10 @@
 * [💿Dataset](#-dataset)
 * [Base Model](#base-model)
 * [Ablation Study](#ablation-study)
+* [EDA](#eda)
+* [LV1](#lv1-건물-도로-각각-검출)
+* [LV2](#lv2-건물-객체-검출)
+* [LV3](#lv3-폴리곤-지도-매핑)
 
 <br>
 
@@ -124,6 +128,8 @@ Dataset: 위성영상 객체판독 소개
 
 <img width="933" alt="스크린샷 2022-06-08 21 52 33" src="https://user-images.githubusercontent.com/96764429/172621068-52e1933f-9a45-4cb3-8989-b96636828e18.png">
 
+<br>
+
 <pre><code>{'geometry': {'coordinates': [[[31.4347031225, 30.0413951468, 0.0],
       [31.4405428056, 30.0414645232, 0.0],
       [31.4404632046, 30.0465452603, 0.0],
@@ -145,7 +151,6 @@ jeojson 파일은 위와 같이 구성
 
 <img width="847" alt="스크린샷 2022-06-08 21 55 34" src="https://user-images.githubusercontent.com/96764429/172621738-50eab779-f30b-4f0a-9442-4077bc519ffe.png">
 
-
 <br>
 
 ## Base Model
@@ -161,6 +166,10 @@ jeojson 파일은 위와 같이 구성
 
 <br>
 
+모델 별 성능을 비교했을 때 Segformer의 성능이 가장 잘 나왔기 때문에 이후 실험에서는 Segformer를 사용
+
+<br>
+
 **Building** *default* Augmentation  
 <pre><code>random resize with ratio 0.5 ~ 2.0  
 random cropping to 512 x 512
@@ -170,8 +179,39 @@ PhotometricDistortion
 
 <br>
 
+## 데이터 전처리
+
+데이터셋의 geojson 파일의 building_imcoords를 이용하여 아래와 같이 masking image를 만들어 줌
+
 <br>
+
+<img width="512" alt="BLD00148_PS3_K3A_NIA0276" src="https://user-images.githubusercontent.com/96764429/172626025-308a9335-1e3a-4115-9055-4b4878b8cf5a.png">
+
+<br>
+
+masking image를 아래와 같이 Labeling image로 바꿔줌
+
+<img width="512" alt="Label image" src="https://user-images.githubusercontent.com/96764429/172627033-f91bffa3-04d0-4f7b-8f1f-c20dad306823.png">
+
+<br>
+
+위의 labeling image는 그냥 까만색 이미지로 보일 수 있지만 아래의 이미지처럼 background(building을 제외한 나머지 부분)는 0, building은 1로 labeling 되어 있음
+
+<br>
+
+[![image](https://user-images.githubusercontent.com/96764429/172624563-44ba3184-fe62-4f72-bf7b-3624ee591ebf.png)](https://www.jeremyjordan.me/semantic-segmentation/#dilated_convolutions)
+
+<br>
+
+* 이후 train에 학습할 데이터를 정제
+  * background와 building의 비율을 산출해서 15% 미만의 이미지는 train에서 제외
+  * background와 road의 비율을 산출해서 10% 미만의 이미지는 train에서 제외
+
+<br>
+
 ## LV1. 건물, 도로 각각 검출   
+
+<br>
 
 ## Ablation Study
 **Loss function**이 모델의 성능에 미치는 영향을 파악하고자 Ablation Study 진행  
@@ -246,6 +286,8 @@ PhotometricDistortion
 | Dice,Lovasz |	default	| OHEM | 79.08	| 66.03 |
 | Dice, **Focal**, Lovasz |	default |	 | 79.22	| **66.32** |
 
+<br>
+
 OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 모델의 성능이 높게 나오는 것을 확인  
 
 <br>
@@ -262,6 +304,8 @@ OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 
 | Dice, Focal, Lovasz	| Default |	79.25 |	66.3	| ➡️	| CutOut	| 79.44	| **66.71** |
 | CrossEntropy ,Dice, Focal, Lovasz |	Default	| 79.22 |	66.32	| ➡️ |	CutOut	| 79.25 |	**66.4** |
 
+<br>
+
 **CutOut**을 적용했을 때 성능 향상됨을 확인   
 
 <br>
@@ -269,6 +313,8 @@ OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 
 ### Road Inference 결과
 
 <img width="1129" alt="Road Inference Result" src="https://user-images.githubusercontent.com/96764429/172583294-7f768c60-7fd5-4e89-ac09-e2521fb7b4bc.png">
+
+<br>
 
 * 좌측의 이미지와 같이 대체로 길을 잘 잡아냄
 * 중간 이미지의 동그란 길은 라벨링 되어 있지 않은 길이지만 잡아냄을 확인
@@ -280,6 +326,8 @@ OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 
 
 <img width="821" alt="LV1 Building Inference Result" src="https://user-images.githubusercontent.com/96764429/172602973-d3db3592-3dc6-4898-8866-56cbc3816742.png">
 
+<br>
+
 * 좌측의 이미지와 같이 건물을 잘 검출해냄
 * 하지만 우측의 이미지에서와 같이 두 개 이상의 건물을 한 덩어리로 잡아내는 한계
 * 이러한 한계점을 극복하기 위해서 LV2 진행
@@ -290,6 +338,8 @@ OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 
 ## LV2. 건물 객체 검출
 
 <img width="421" alt="image" src="https://user-images.githubusercontent.com/96764429/172608620-aaeb88e9-3e56-411c-ab22-464fa5c13f32.png">
+
+<br>
 
 * 위의 이미지와 같이 건물의 Boundary에 Contour 처리
 * LV1과 달리 Background, Building, Boundary 3개의 class로 학습을 진행
@@ -323,9 +373,12 @@ CutOut의 최적의 하이퍼파라미터를 찾기 위한 실험결과(max_iter
 | Random CutOut	| 74.82	| 79.31 |
 | Random CutOut	| 74.75	| 79.22 |
 
+<br>
+
 * <code>RandomCutOut(prob=0.5, n_holes=(1,100), cutout_ratio=[(0.25,0.75)]</code>일 때 좋은 결과가 나옴을 확인
 * 이를 토대로 batch size=2, max_iter=50k 모델 학습 수행시 아래와 같은 결과
 
+<br>
 |	Augmentation |	mIoU |	Building IoU |
 | --- | :---: | :---: |
 | Random CutOut	| 75.4	| **80**	|
@@ -336,12 +389,16 @@ CutOut의 최적의 하이퍼파라미터를 찾기 위한 실험결과(max_iter
 
 <img width="868" alt="LV2 Building Inference Result" src="https://user-images.githubusercontent.com/96764429/172614485-beede17f-8366-4da4-88ee-16723bd52b7c.png">
 
+<br>
+
 * 좌측 이미지와 중간 이미지를 보면 대체로 건물을 객체별로 잘 분리해 냄을 확인
 * 우측 이미지와 같이 소형 건물이 밀집해 있는 지역도 어느 정도 분리하지만 보완이 필요
 
 <br>
 
 ## LV1, LV2 Inference 결과 
+
+<br>
 
 <img width="591" alt="LV1, LV2 Inference 비교 2" src="https://user-images.githubusercontent.com/96764429/172615690-0ced4a6a-fae0-4ef3-9b8e-d8bdd26ebb23.png">
 
