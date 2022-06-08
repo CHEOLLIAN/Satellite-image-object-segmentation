@@ -191,7 +191,7 @@ PhotometricDistortion
 <br>
 
 * Road의 경우 Building 보다 Class imbalance가 더욱 심함
-* Class imbalance를 잡아주기 위한 Loss function인 Focal loss와 OHEM Sampler의 성능을 비교
+* Class imbalance를 잡아주기 위한 Loss function인 **Focal Loss**와 **OHEM Sampler**의 성능을 비교
 
 |Loss function |	Augmentation |	mIoU |	Road IoU |
 | --- | --- | :---: | :---: |
@@ -199,4 +199,5 @@ PhotometricDistortion
 | Dice,Lovasz |	OHEM sampler	| 79.08	| 66.03 |
 | Dice, **Focal**, Lovasz |	default |	79.22	| **66.32** |
 
+OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 모델의 성능이 높게 나오는 것을 확인
 
