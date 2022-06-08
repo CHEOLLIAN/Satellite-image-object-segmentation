@@ -406,9 +406,7 @@ CutOut의 최적의 하이퍼파라미터를 찾기 위한 실험결과(max_iter
 
 <br>
 
-## LV1, LV2 Inference 결과 
-
-<br>
+## LV1, LV2 Inference 결과
 
 <img width="591" alt="LV1, LV2 Inference 비교 2" src="https://user-images.githubusercontent.com/96764429/172615690-0ced4a6a-fae0-4ef3-9b8e-d8bdd26ebb23.png">
 
