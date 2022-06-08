@@ -107,8 +107,47 @@ Dataset: 위성영상 객체판독 소개
 | 구축 목적 | 아리랑 위성영상(광학 및 레이다 영상)을 이용한 다양한 위성정보 획득</br> 아리랑 위성 AI 데이터 구축·제공을 통해 국내 AI 위성 분석 서비스 산업 육성 |
 
 <br>
+<br>
+
+# 프로젝트 내용
+
+>MMSegmentation을 활용하여 전체적인 프로젝트를 수행
+
+<br>
 
 ***
+## EDA
+
+<img width="821" alt="스크린샷 2022-06-08 21 50 38" src="https://user-images.githubusercontent.com/96764429/172620713-5aa53791-b2cc-4af9-a724-41bf52ac2c1c.png">
+
+<br>
+
+<img width="933" alt="스크린샷 2022-06-08 21 52 33" src="https://user-images.githubusercontent.com/96764429/172621068-52e1933f-9a45-4cb3-8989-b96636828e18.png">
+
+<pre><code>{'geometry': {'coordinates': [[[31.4347031225, 30.0413951468, 0.0],
+      [31.4405428056, 30.0414645232, 0.0],
+      [31.4404632046, 30.0465452603, 0.0],
+      [31.4346232236, 30.0464758698, 0.0]]],
+    'type': 'Polygon'},
+   'properties': {'building_imcoords': '821.5515067078223,969.1356097092277,799.4138912576116,1009.1063042721082,798.7989574951057,1020.4825788784664,816.3245697265226,1024,847.6861916143212,997.7300296657498,847.0712578518154,986.9686888218974',
+    'image_id': 'BLD00001_PS3_K3A_NIA0276.png',
+    'ingest_time': '2020-10-27T02:04:23.355595Z',
+    'object_imcoords': 'EMPTY',
+    'road_imcoords': 'EMPTY',
+    'type_id': '2',
+    'type_name': '아파트'},
+   'type': 'Feature'}
+</pre></code>
+
+jeojson 파일은 위와 같이 구성
+
+<br>
+
+<img width="847" alt="스크린샷 2022-06-08 21 55 34" src="https://user-images.githubusercontent.com/96764429/172621738-50eab779-f30b-4f0a-9442-4077bc519ffe.png">
+
+
+<br>
+
 ## Base Model
 ### 모델 별 성능 비교
 
@@ -132,6 +171,7 @@ PhotometricDistortion
 <br>
 
 <br>
+## LV1. 건물, 도로 각각 검출   
 
 ## Ablation Study
 **Loss function**이 모델의 성능에 미치는 영향을 파악하고자 Ablation Study 진행  
@@ -159,7 +199,7 @@ iteration: 20k
 | CrossEntropy, Dice, Focal	| 87.07	| 82.78 |
 | CrossEntropy, Dice, Lovasz	| 87.43	| 83.31 |
 | CrossEntropy, Focal, Lovasz	| 87.64	| **83.51** |
-| Dice, Focal, Lovasz |	87.49	| 83.35 |
+| Dice, Focal, Lovasz |	87.49	| **83.35** |
 | CrossEntropy, Dice, Focal, Lovasz	| 87.42	| 83.23 |
 
 <br>
@@ -230,5 +270,107 @@ OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 
 
 <img width="1129" alt="Road Inference Result" src="https://user-images.githubusercontent.com/96764429/172583294-7f768c60-7fd5-4e89-ac09-e2521fb7b4bc.png">
 
-대체적으로 길을 잘 잡아내지만, 육안으로 확인했을 때 알아보기 어려운 길은 잘 잡아내지 못함을 알 수 있음
+* 좌측의 이미지와 같이 대체로 길을 잘 잡아냄
+* 중간 이미지의 동그란 길은 라벨링 되어 있지 않은 길이지만 잡아냄을 확인
+* 우측 이미지와 같이 건물 사이의 골목길처럼 육안으로 확인했을 때 알아보기 어려운 길을 잘 잡아내지 못하는 한계
 
+<br>
+
+### Building Inference 결과
+
+<img width="821" alt="LV1 Building Inference Result" src="https://user-images.githubusercontent.com/96764429/172602973-d3db3592-3dc6-4898-8866-56cbc3816742.png">
+
+* 좌측의 이미지와 같이 건물을 잘 검출해냄
+* 하지만 우측의 이미지에서와 같이 두 개 이상의 건물을 한 덩어리로 잡아내는 한계
+* 이러한 한계점을 극복하기 위해서 LV2 진행
+
+<br>
+<br>
+
+## LV2. 건물 객체 검출
+
+<img width="421" alt="image" src="https://user-images.githubusercontent.com/96764429/172608620-aaeb88e9-3e56-411c-ab22-464fa5c13f32.png">
+
+* 위의 이미지와 같이 건물의 Boundary에 Contour 처리
+* LV1과 달리 Background, Building, Boundary 3개의 class로 학습을 진행
+
+<br>
+
+LV1에서 수행한 Ablation Study에서 결과가 잘 나온 Loss Function의 조합을 이용하여 모델 학습을 진행
+
+| Loss function |	mIoU	Building | IoU |
+| --- | :---: | :---: |
+| CrossEntropy, Focal, Lovasz	| 74.55	| 79.27 |
+| Dice, Focal, Lovasz	| 74.93	| **79.42** |
+
+<br>
+
+* 위의 결과를 토대로 이후의 실험에서는 **Dice**, **Focal**, **Lovasz**의 Loss Function 조합을 사용
+* 위의 결과보다 좋은 성능을 이끌어내기 위해서 Hard Augmentation인 **CutOut** 적용
+
+CutOut의 최적의 하이퍼파라미터를 찾기 위한 실험결과(max_iter=20k)
+|	Augmentation |	mIoU |	Building IoU |
+| --- | :---: | :---: |
+| Random CutOut	| 74.92	| 79.2 |
+| Random CutOut	| 74.3	| 78.99 |
+| Random CutOut	| 73.56	| 78.81 |
+| Random CutOut	| 74.19	| 78.82 |
+| Random CutOut	| 74.8	| 79.53 |
+| Random CutOut	| 74.76	| 79.32 |
+| Random CutOut	| 75.02	| 79.62 |
+| Random CutOut	| 75.22	| 79.7 |
+| Random CutOut	| 74.9	| 79.61 |
+| Random CutOut	| 74.82	| 79.31 |
+| Random CutOut	| 74.75	| 79.22 |
+
+* <code>RandomCutOut(prob=0.5, n_holes=(1,100), cutout_ratio=[(0.25,0.75)]</code>일 때 좋은 결과가 나옴을 확인
+* 이를 토대로 batch size=2, max_iter=50k 모델 학습 수행시 아래와 같은 결과
+
+|	Augmentation |	mIoU |	Building IoU |
+| --- | :---: | :---: |
+| Random CutOut	| 75.4	| **80**	|
+
+<br>
+
+### LV2 Building Inference 결과
+
+<img width="868" alt="LV2 Building Inference Result" src="https://user-images.githubusercontent.com/96764429/172614485-beede17f-8366-4da4-88ee-16723bd52b7c.png">
+
+* 좌측 이미지와 중간 이미지를 보면 대체로 건물을 객체별로 잘 분리해 냄을 확인
+* 우측 이미지와 같이 소형 건물이 밀집해 있는 지역도 어느 정도 분리하지만 보완이 필요
+
+<br>
+
+## LV1, LV2 Inference 결과 
+
+<img width="591" alt="LV1, LV2 Inference 비교 2" src="https://user-images.githubusercontent.com/96764429/172615690-0ced4a6a-fae0-4ef3-9b8e-d8bdd26ebb23.png">
+
+<br>
+
+<img width="788" alt="LV1, LV2 Inference 비교" src="https://user-images.githubusercontent.com/96764429/172615365-adbdd4a8-ae19-4006-94a1-5e15cb63d388.png">
+
+<br>
+
+## LV3. 폴리곤 지도 매핑
+
+<img width="947" alt="Inference result -  contour" src="https://user-images.githubusercontent.com/96764429/172617873-7111cf47-5c3d-408a-93ba-ffd2bc69e2f3.png">
+
+<br>
+
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/96764429/172618327-0ddcde66-552a-41cb-b275-72f5b08c03a4.png">
+
+<br>
+
+### LV3 폴리곤 매핑 결과
+
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/96764429/172618823-32d81f87-e4d0-4b99-811e-1f92d3158fa8.png">
+
+<br>
+
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/96764429/172619028-3d9824da-faa0-4575-80b3-15aaee2a65c7.png">
+
+<br>
+
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/96764429/172619063-2d1338ce-903b-4421-9665-48c8796ea4c8.png">
+
+<br>
