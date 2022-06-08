@@ -136,9 +136,12 @@ PhotometricDistortion
 ## Ablation Study
 **Loss function**이 모델의 성능에 미치는 영향을 파악하고자 Ablation Study 진행  
 
-Crop size: 512 x 512  
+<pre><code>Crop size: 512 x 512  
 Augmentation: default  
 iteration: 20k
+</pre></code>
+
+<br>
 
 ### Building
 | Loss function |	mIoU |	Building IoU |
@@ -181,6 +184,8 @@ iteration: 20k
 | Dice, Focal, Lovasz	| 79.22	| **66.32** |
 | CrossEntropy, Dice, Focal, Lovasz|	79.25 |	66.3 |
 
+<br>
+
 **Road** *default* Augmentation  
 <pre><code>random resize with ratio 0.5 ~ 1.5  
 random cropping to 512 x 512
@@ -193,6 +198,8 @@ PhotometricDistortion
 * Road의 경우 Building 보다 Class imbalance가 더욱 심함
 * Class imbalance를 잡아주기 위한 Loss function인 **Focal Loss**와 **OHEM Sampler**의 성능을 비교
 
+<br>
+
 | Loss function |	Augmentation | Sampler |	mIoU |	Road IoU |
 | --- | --- | --- | :---: | :---: |
 | Dice, Lovasz	| default |  |	78.89 |	65.76 |
@@ -201,7 +208,11 @@ PhotometricDistortion
 
 OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 모델의 성능이 높게 나오는 것을 확인  
 
+<br>
+
 * 성능 향상을 위해 Road Model에 **CutOut** augmentation을 적용
+
+<br>
 
 | Loss function | Augmentation | mIoU | Road IoU | ➡️ | Augmentation | mIoU | Road IoU |
 | --- | --- | :---: | :---: | --- | --- | :---: | :---: |
@@ -211,6 +222,13 @@ OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 
 | Dice, Focal, Lovasz	| Default |	79.25 |	66.3	| ➡️	| CutOut	| 79.44	| **66.71** |
 | CrossEntropy ,Dice, Focal, Lovasz |	Default	| 79.22 |	66.32	| ➡️ |	CutOut	| 79.25 |	**66.4** |
 
-**CutOut**을 적용했을 때 성능 향상   
+**CutOut**을 적용했을 때 성능 향상됨을 확인   
 
+<br>
+
+### Road Inference 결과
+
+<img width="1129" alt="Road Inference Result" src="https://user-images.githubusercontent.com/96764429/172583294-7f768c60-7fd5-4e89-ac09-e2521fb7b4bc.png">
+
+대체적으로 길을 잘 잡아내지만, 육안으로 확인했을 때 알아보기 어려운 길은 잘 잡아내지 못함을 알 수 있음
 
