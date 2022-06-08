@@ -112,7 +112,7 @@ Dataset: 위성영상 객체판독 소개
 ## Base Model
 ### 모델 별 성능 비교
 
-| Backbone |	Model | Crop_size |	Augmentation |	Loss function |	mIoU |	IoU |
+| Backbone |	Model | Crop_size |	Augmentation |	Loss function |	mIoU |	Building IoU |
 | --- | --- | --- | --- | --- | --- | --- |
 | ResNet101 |	Semantic FPN |	512x512 |	default	|CrossEntropy|	77.43	| 69.61|
 | ResNet101 |	DeepLabV3 |	512x512 |	default |	CrossEntropy	| 85.4	| 80.52|
@@ -122,9 +122,7 @@ Dataset: 위성영상 객체판독 소개
 
 <br>
 
-<br>
-
-*default* Augmentation  
+**Building** *default* Augmentation  
 <pre><code>random resize with ratio 0.5 ~ 2.0  
 random cropping to 512 x 512
 random horizontal flipping prop 0.5  
@@ -142,11 +140,11 @@ Crop size: 512 x 512
 Augmentation: default  
 iteration: 20k
 
-## Building
+### Building
 | Loss function |	mIoU |	Building IoU |
 | --- | --- | --- |
-| Dice	| 87.59	| **83.51** |
 | CrossEntropy |	87.18 |	82.88 |
+| Dice	| 87.59	| **83.51** |
 | Focal |	87.17|	82.88 |
 | Lovasz	|87.19	| 82.97 |
 | CrossEntropy, Dice	| 87.41	| 83.23 |
@@ -160,4 +158,35 @@ iteration: 20k
 | CrossEntropy, Focal, Lovasz	| 87.64	| **83.51** |
 | Dice, Focal, Lovasz |	87.49	| 83.35 |
 | CrossEntropy, Dice, Focal, Lovasz	| 87.42	| 83.23 |
+
+<br>
+
+### Road
+
+| Loss function |	mIoU |	Road IoU |
+| --- | --- | --- |
+| CrossEntropy	| 78.45	| 64.77 |
+| Dice	| 78.8	| 65.45 |
+| Focal	| 78.38	| 64.62 |
+| Lovasz	| 78.64	| 65.4 |
+| CrossEntropy, Dice	| 78.58	| 64.99 |
+| CrossEntropy, Focal	| 78.66	| 65.13 |
+| CrossEntropy, Lovasz	| 79.17	| 66.12 |
+| Dice, Focal	| 78.93	| 65.66 |
+| Dice, Lovasz	| 78.89	| 65.76 |
+| Focal, Lovasz	| 79.24	| 66.39 |
+| CrossEntropy, Dice, Focal	| 78.68	| 65.16 |
+| CrossEntropy,Dice, Lovasz	| 78.64	| 65.11 |
+| CrossEntropy, Focal, Lovasz	| 79.12	| 66.03 |
+| Dice, Focal, Lovasz	| 79.22	| 66.32 |
+| CrossEntropy, Dice, Focal, Lovasz|	79.25 |	66.3 |
+
+**Road** *default* Augmentation  
+<pre><code>random resize with ratio 0.5 ~ 1.5  
+random cropping to 512 x 512
+random horizontal flipping prop 0.5  
+PhotometricDistortion
+</pre></code>
+
+<br>
 
