@@ -359,7 +359,7 @@ OHEM Sampler를 사용하는 것보다 Focal Loss를 사용하는 것이 보다 
 
 LV1에서 수행한 Ablation Study에서 결과가 잘 나온 Loss Function의 조합을 이용하여 모델 학습을 진행
 
-| Loss function |	mIoU	Building | IoU |
+| Loss function |	mIoU	| Building IoU |
 | --- | :---: | :---: |
 | CrossEntropy, Focal, Lovasz	| 74.55	| 79.27 |
 | Dice, Focal, Lovasz	| 74.93	| **79.42** |
