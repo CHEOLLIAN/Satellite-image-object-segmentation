@@ -390,6 +390,7 @@ CutOut의 최적의 하이퍼파라미터를 찾기 위한 실험결과(max_iter
 * 이를 토대로 batch size=2, max_iter=50k 모델 학습 수행시 아래와 같은 결과
 
 <br>
+
 |	Augmentation |	mIoU |	Building IoU |
 | --- | :---: | :---: |
 | Random CutOut	| 75.4	| **80**	|
